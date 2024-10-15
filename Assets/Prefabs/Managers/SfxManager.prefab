@@ -170,7 +170,7 @@ MonoBehaviour:
     clips:
     - {fileID: 8300000, guid: 45a4aad6418b077448772c6c99f582d9, type: 3}
     clip: {fileID: 0}
-    mixer: {fileID: 8620151619395561000, guid: 7685c24809a823c42947c5761eb368f5, type: 2}
+    mixer: {fileID: -8538999406138571177, guid: 7685c24809a823c42947c5761eb368f5, type: 2}
     maxVolume: 0.4
     pitch: 2
     doLoop: 0

@@ -21,9 +21,15 @@ public class CardDisplay : MonoBehaviour
     public bool IsSwapping { get; private set; }
 
     private GameManager _gameManager;
+
+    private Animator _anim;
+    private bool _isSelected;
+    private bool _isDragging;
+
     void Start()
     {
         _gameManager = GameManager.Instance;
+        _anim = GetComponentInParent<Animator>();
         _sprite.sprite = card.cardSprite;
 
         IsMouseInCard = false;
@@ -63,6 +69,12 @@ public class CardDisplay : MonoBehaviour
     {
         IsMouseInCard = true;
         CardManager.Instance.DealtMouseEnterCard(tooltip);
+
+        //plays pop up animation if card is playable
+        if (_anim != null && CardIsPlayable())
+        {
+            _anim.SetBool("Hover", true);
+        }
     }
 
     /// <summary>
@@ -73,6 +85,12 @@ public class CardDisplay : MonoBehaviour
     {
         IsMouseInCard = false;
         CardManager.Instance.DealtMouseExitCard(tooltip);
+
+        //plays pop up animation if card is playable
+        if (_anim != null && CardIsPlayable())
+        {
+            _anim.SetBool("Hover", false);
+        }
     }
     /// <summary>
     /// Helper method for Event Trigger Pointer Down for DealtCards
@@ -84,7 +102,78 @@ public class CardDisplay : MonoBehaviour
         {
             IsMouseDown = true;
             CardManager.Instance.DealtMousePressedCard(Card);
+
+            //double click to play functionality if the card is playable.
+            if(CardIsPlayable())
+            {
+                SelectCard(Card);
+            }
         }
+    }
+
+    /// <summary>
+    /// Called when the player clicks on a dealt card that can be played. If it is selected,
+    /// playes tha card, it it is not already selected, selects it.
+    /// </summary>
+    /// <param name="Card"></param>
+    private void SelectCard(Image Card)
+    {
+        if (_isSelected)
+        {
+            //play card and sound
+            CardManager.Instance.PlayCard(Card, ID);
+            SfxManager.Instance.PlaySFX(4295);
+
+            //TODO: move card to play area
+
+            return;
+        }
+
+        //if card is not active yet, deselect any other active dealt cards
+        //and make this one active and play anim and sound.
+        if(CardIsPlayable())
+        {
+            foreach (Image dealtCard in UIManager.Instance.GetInstantiatedDealtCardImages())
+            {
+                dealtCard.GetComponentInChildren<CardDisplay>().SetIsSelected(false);
+            }
+            if(!_isDragging)
+                _anim.SetBool("Select", true);
+            _isSelected = true;
+            SfxManager.Instance.PlaySFX(1092);
+        }
+    }
+
+    /// <summary>
+    /// Sets the dealt card display and animation for the double click to play functionality.
+    /// </summary>
+    /// <param name="input"></param>
+    public void SetIsSelected(bool input)
+    {
+        if(_isSelected && !input)
+        {
+            _anim.SetBool("Select", false);
+        }
+        if(!_isSelected && input)
+        {
+            _anim.SetBool("Select", true);
+        }
+        _isSelected = input;
+    }
+
+    /// <summary>
+    /// Retrns a bool that checks if the card is playable or not. Used to see if the
+    /// animations should play or not.
+    /// </summary>
+    /// <returns></returns>
+    private bool CardIsPlayable()
+    {
+        if (card.name == Card.CardName.Clear && UIManager.Instance.GetInstantiatedPlayedCardImages().Count < 1)
+            return false;
+        if (card.name == Card.CardName.Switch && UIManager.Instance.GetInstantiatedPlayedCardImages().Count < 2)
+            return false;
+
+        return true;
     }
 
     /// <summary>
@@ -97,6 +186,12 @@ public class CardDisplay : MonoBehaviour
         {
             IsMouseDown = false;
             CardManager.Instance.DealtMouseReleasedCard(Card, ID);
+
+            //disable animator to allow drag
+            if(_anim != null)
+            {
+                _anim.enabled = true;
+            }
         }
     }
 
@@ -106,9 +201,15 @@ public class CardDisplay : MonoBehaviour
     /// <param name="Card">Image object for the card</param>
     public void OnDragDealtCard(Image Card)
     {
-        if (Mouse.current.leftButton.isPressed)
+        if (Mouse.current.leftButton.isPressed && CardIsPlayable())
         {
             CardManager.Instance.DealtOnDragCard(Card);
+
+            //disable animator to allow drag
+            if (_anim != null)
+            {
+                _anim.enabled = false;
+            }
         }
     }
 

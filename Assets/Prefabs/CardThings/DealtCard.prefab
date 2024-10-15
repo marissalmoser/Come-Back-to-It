@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8469ce33d91dc734b8d0318ee6cd9b05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _card: {fileID: 0}
+  card: {fileID: 0}
   _sprite: {fileID: 2555694965594408971}
   ID: -1
 --- !u!114 &2466873516601326507
@@ -332,6 +332,7 @@ GameObject:
   - component: {fileID: 467321719107628408}
   - component: {fileID: 2931879589946811916}
   - component: {fileID: -5610800399052724383}
+  - component: {fileID: 5366283386041508287}
   m_Layer: 5
   m_Name: DealtCard
   m_TagString: Untagged
@@ -470,6 +471,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!95 &5366283386041508287
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041257833130199894}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c90e6f7e25080d1429c9ab129b43e0bc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7682033998645495513
 GameObject:
   m_ObjectHideFlags: 0

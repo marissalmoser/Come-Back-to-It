@@ -122,11 +122,10 @@ public class CardManager : MonoBehaviour
     /// <param name="cardImage">The image of the card</param>
     public void DealtMousePressedCard(Image cardImage)
     {
-        //sound call
-        SfxManager.Instance.PlaySFX(3541);
         //Makes tooltip invisible
         cardImage.gameObject.transform.Find("Tooltip").gameObject.GetComponent<Image>().enabled = false;
         cardImage.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+
         //If Game is ready for you to choose another card, allow card movement
         if (_gameManager.gameState == GameManager.STATE.ChooseCards || _gameManager.gameState == GameManager.STATE.ConfirmCards
             || _gameManager.gameState == GameManager.STATE.ChooseTurn)
@@ -149,8 +148,6 @@ public class CardManager : MonoBehaviour
     /// <param name="ID">The ID of the card</param>
     public void DealtMouseReleasedCard(Image cardImage, int ID)
     {
-        //sound effect call
-        SfxManager.Instance.PlaySFX(1092);
         //Makes tooltip visible
         if (cardImage.GetComponentInChildren<CardDisplay>().IsMouseInCard)
         {
@@ -159,73 +156,86 @@ public class CardManager : MonoBehaviour
         }
 
         //If Game is ready for you to choose another card, allow card movement
-        if (_gameManager.gameState == GameManager.STATE.ChooseCards || _gameManager.gameState == GameManager.STATE.ConfirmCards
+        if (_gameManager.gameState == GameManager.STATE.ChooseCards
+            || _gameManager.gameState == GameManager.STATE.ConfirmCards
             || _gameManager.gameState == GameManager.STATE.ChooseTurn)
         {
             _imageCollider = cardImage.GetComponent<BoxCollider2D>();
+            Card.CardName cardName = cardImage.GetComponentInChildren<CardDisplay>().card.name;
             //Checks if the image is overlapping with the play area
             if (_imageCollider.IsTouching(_playArea) 
-                && (cardImage.GetComponentInChildren<CardDisplay>().card.name != Card.CardName.Clear || _gameManager.GetPlayedCards().Count != 0)
-                && (cardImage.GetComponentInChildren<CardDisplay>().card.name != Card.CardName.Switch || _gameManager.GetPlayedCards().Count > 1))
+                && (cardName != Card.CardName.Clear ||_gameManager.GetPlayedCards().Count != 0)
+                && (cardName != Card.CardName.Switch || _gameManager.GetPlayedCards().Count > 1))
             {
-                //Resets GameManager variables ( in case card was replaced with a different one )
-                _gameManager.isClearing = false;
-                _gameManager.isSwitching = false;
-                _gameManager.isTurning = false;
-                _gameManager.isStalling = false;
-                switchCards.Item1 = null;
-                switchCards.Item2 = null;
-                clearCards = new Image[numOfCardsToClear];
-                _gameManager.ResetPlayedDisplay();
-
-                //Disables confirmation button if the card needs an extra step before being played
-                Card card = cardImage.GetComponentInChildren<CardDisplay>().card;
-                if (card.name == Card.CardName.Turn || card.name == Card.CardName.Switch || card.name == Card.CardName.Clear)
-                    _uiManager.confirmButton.GetComponent<ConfirmationControls>().SetIsActive(false);
-
-                //Erases switch and clear sprites from playedCards
-                List<Image> tempPlayedCards = _uiManager.GetInstantiatedPlayedCardImages();
-                int tempCount = tempPlayedCards.Count;
-                for (int i = 0; i < tempCount; i++)
-                {
-                    tempPlayedCards[i].gameObject.transform.Find("Clear").GetComponent<Image>().enabled = false;
-                    tempPlayedCards[i].gameObject.transform.Find("Swap").GetComponent<Image>().enabled = false;
-                }
-
-                //If the player was choosing a turn card when it got replaced
-                if (_gameManager.gameState == GameManager.STATE.ChooseTurn)
-                {
-                    //Turns off the darken effect
-                    if (_gameManager.lowerDarkenIndex)
-                    {
-                        _gameManager.darken.transform.SetSiblingIndex(_gameManager.darken.transform.GetSiblingIndex() - 1);
-                    }
-                    _gameManager.lowerDarkenIndex = false;
-
-                    //Destroys the turn cards
-                    _uiManager.DestroyTurnCards();
-                }
-
-                //If a card was replaced
-                if (lastConfirmationCard != null)
-                {
-                    //Respawns previous card
-                    lastConfirmationCard.gameObject.SetActive(true);
-                    lastConfirmationCard.gameObject.transform.Find("Tooltip").gameObject.GetComponent<Image>().enabled = false;
-                    lastConfirmationCard.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
-
-                    _gameManager.StopDemo();
-                }
-
-                lastConfirmationCard = cardImage;
-
-                cardImage.gameObject.SetActive(false);
-                _gameManager.PlayCard(ID);
+                PlayCard(cardImage, ID);
             }
             //Reset card position
             cardImage.rectTransform.position = _imageStartingPosition;
             cardImage.enabled = false;
         }
+    }
+
+    /// <summary>
+    /// Plays the selected card. Used by draggin a card into the play area and clicking
+    /// an active dealt card. Then calls the game manager Play Card function.
+    /// </summary>
+    /// <param name="cardImage"></param>
+    /// <param name="ID"></param>
+    public void PlayCard(Image cardImage, int ID)
+    {
+        //Resets GameManager variables ( in case card was replaced with a different one )
+        _gameManager.isClearing = false;
+        _gameManager.isSwitching = false;
+        _gameManager.isTurning = false;
+        _gameManager.isStalling = false;
+        switchCards.Item1 = null;
+        switchCards.Item2 = null;
+        clearCards = new Image[numOfCardsToClear];
+        _gameManager.ResetPlayedDisplay();
+
+        //Disables confirmation button if the card needs an extra step before being played
+        Card card = cardImage.GetComponentInChildren<CardDisplay>().card;
+        if (card.name == Card.CardName.Turn || card.name == Card.CardName.Switch || card.name == Card.CardName.Clear)
+            _uiManager.confirmButton.GetComponent<ConfirmationControls>().SetIsActive(false);
+
+        //Erases switch and clear sprites from playedCards
+        List<Image> tempPlayedCards = _uiManager.GetInstantiatedPlayedCardImages();
+        int tempCount = tempPlayedCards.Count;
+        for (int i = 0; i < tempCount; i++)
+        {
+            tempPlayedCards[i].gameObject.transform.Find("Clear").GetComponent<Image>().enabled = false;
+            tempPlayedCards[i].gameObject.transform.Find("Swap").GetComponent<Image>().enabled = false;
+        }
+
+        //If the player was choosing a turn card when it got replaced
+        if (_gameManager.gameState == GameManager.STATE.ChooseTurn)
+        {
+            //Turns off the darken effect
+            if (_gameManager.lowerDarkenIndex)
+            {
+                _gameManager.darken.transform.SetSiblingIndex(_gameManager.darken.transform.GetSiblingIndex() - 1);
+            }
+            _gameManager.lowerDarkenIndex = false;
+
+            //Destroys the turn cards
+            _uiManager.DestroyTurnCards();
+        }
+
+        //If a card was replaced
+        if (lastConfirmationCard != null)
+        {
+            //Respawns previous card
+            lastConfirmationCard.gameObject.SetActive(true);
+            lastConfirmationCard.gameObject.transform.Find("Tooltip").gameObject.GetComponent<Image>().enabled = false;
+            lastConfirmationCard.GetComponentInChildren<TextMeshProUGUI>().enabled = false;
+
+            _gameManager.StopDemo();
+        }
+
+        lastConfirmationCard = cardImage;
+
+        cardImage.gameObject.SetActive(false);
+        _gameManager.PlayCard(ID);
     }
 
     /// <summary>
