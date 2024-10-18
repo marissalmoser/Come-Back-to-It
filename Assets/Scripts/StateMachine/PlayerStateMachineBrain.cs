@@ -407,10 +407,12 @@ public class PlayerStateMachineBrain : MonoBehaviour
             yield return new WaitForSeconds(.75f);
             GameManager.TrapAction?.Invoke();
             _firedTraps = true;
-            if (_currentPlayerController.GetTileWithPlayerRaycast() != null && _currentPlayerController.GetTileWithPlayerRaycast().GetObstacleClass() != null)
+            var tile = _currentPlayerController.GetTileWithPlayerRaycast();
+            if (tile != null && tile.GetObstacleClass() != null && tile.GetObstacleClass().IsActive())
             {
+                var temp = _currentPlayerController.GetTileWithPlayerRaycast().GetObstacleClass().GetCard();
                 //get card and check if its not a turn tables
-                if (_currentAction != null && (_currentAction.name != Card.CardName.TurnLeft && _currentAction.name != Card.CardName.TurnRight))
+                if (temp != null && (temp.name != Card.CardName.TurnLeft && temp.name != Card.CardName.TurnRight))
                 {
                     AddCardToList(_currentPlayerController.GetTileWithPlayerRaycast().GetObstacleClass().GetCard());
                 }

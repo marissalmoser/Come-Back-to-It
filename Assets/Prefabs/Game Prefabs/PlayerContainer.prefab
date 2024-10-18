@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentFacingDirection: 1
   _jumpArcHeight: 4
-  _checkInterval: 1
+  _checkInterval: 0.75
   _rayCastDistance: 3
   _forwardCastDistance: 0.05
   _raycastPoint: {fileID: 2925217296595416114}
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentFacingDirection: 1
   _jumpArcHeight: 4
-  _checkInterval: 1
+  _checkInterval: 0.75
   _rayCastDistance: 3
   _forwardCastDistance: 0.05
   _raycastPoint: {fileID: 4540641159670852829}
