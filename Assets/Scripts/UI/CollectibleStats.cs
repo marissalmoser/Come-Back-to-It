@@ -13,10 +13,12 @@ using UnityEngine;
 [Serializable]
 public class CollectibleStats
 {
-    [SerializeField] string LevelName;
-    [SerializeField] int BuildIndex;
-    [SerializeField] bool IsCollected;
-    [SerializeField] bool HasCollectible;
+    [SerializeField] private string _levelName;
+    [SerializeField] private int _buildIndex;
+    [SerializeField] public bool isCollected;
+    [SerializeField] private bool _hasCollectible;
+
+    private CollectibleManager _collectibleManager;
 
     /// <summary>
     /// Initializes a new instance of the CollectibleStats class.
@@ -27,18 +29,18 @@ public class CollectibleStats
 
     public CollectibleStats(string levelName, int buildIndex, bool hasCollectible)
     {
-        LevelName = levelName;
-        BuildIndex = buildIndex;
-        HasCollectible = hasCollectible;
-        IsCollected = false;
+        _levelName = levelName;
+        _buildIndex = buildIndex;
+        _hasCollectible = hasCollectible;
+        isCollected = false;
     }
 
     /// <summary>
-    /// Sets the collectible state to collected or not.
+    /// Sets the isCollected stat to true for a collectible based on index
     /// </summary>
-    /// <param name="collected">True if the collectible is collected, false otherwise.</param>
-    public void SetIsCollected(bool collected)
+    /// <param name="index"></param>
+    public void CollectCollectible(int index)
     {
-        IsCollected = collected;
+        CollectibleManager.Instance.collectibleStats[index].isCollected = true;
     }
 }

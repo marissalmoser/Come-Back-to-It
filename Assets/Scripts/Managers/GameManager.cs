@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     private DeckManager<int> _deckManagerInt;
     private CardManager _cardManager;
     private UIManager _uiManager;
+    private CollectibleStats _collectibleStats;
     private ArrowsManager _arrowsManager;
 
     public STATE gameState;
@@ -824,13 +825,6 @@ public class GameManager : MonoBehaviour
         if (_playedCards.Count == 5)
             DeathMethod();
         ChangeGameState(STATE.ChooseCards);
-    }
-
-
-    public void AddCollectable(Collectable collectable)
-    {
-        collectablesCollected.Add(collectable);
-        _uiManager.UpdateCollectables();
     }
 
     /// <summary>

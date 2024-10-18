@@ -11,6 +11,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -59,7 +60,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Canvas")]
     [SerializeField] private GameObject _canvas;
-    [SerializeField] private TextMeshProUGUI _collectablesCount;
+    [SerializeField] private TextMeshProUGUI _collectiblesCount;
     [SerializeField] private TextMeshProUGUI _deckCount;
     private Vector2 _deckCountPos;
     public Button confirmButton, cancelButton;
@@ -132,6 +133,12 @@ public class UIManager : MonoBehaviour
         cardSlot3.rectTransform.anchoredPosition = new Vector2(-_widthPadding, _screenHeight - cardHeight / 2 - _cardHeightSpacing * 2 - _heightPadding);
         cardSlot4.rectTransform.anchoredPosition = new Vector2(-_widthPadding, _screenHeight - cardHeight / 2 - _cardHeightSpacing * 3 - _heightPadding);
         cardSlot5.rectTransform.anchoredPosition = new Vector2(-_widthPadding, _screenHeight - cardHeight / 2 - _cardHeightSpacing * 4 - _heightPadding);
+
+        GameObject textObject = GameObject.Find("Counter");
+        if (textObject != null)
+        {
+            _collectiblesCount = textObject.GetComponent<TextMeshProUGUI>();
+        }
     }
 
     /// <summary>
@@ -600,10 +607,14 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Updates how many collectables the player has attained
     /// </summary>
-    public void UpdateCollectables()
+    public void UpdateLevelCollectibles()
     {
-        int numOfCollectables = _gameManager.GetCollectableCount();
-        _collectablesCount.text = numOfCollectables.ToString();
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        if (CollectibleManager.Instance.collectibleStats[currentScene.buildIndex].isCollected)
+        {
+            _collectiblesCount.text = "1";
+        }
     }
 
     //Initialzes helper variable

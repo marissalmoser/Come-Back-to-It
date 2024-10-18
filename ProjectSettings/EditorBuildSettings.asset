@@ -24,13 +24,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/World1/RotatingPlatformsTutorial.unity
     guid: 6bc6abf5b5740f246be4fe1d21e7545b
   - enabled: 1
-    path: Assets/Scenes/Levels/World1/Level3.unity
+    path: Assets/Scenes/Levels/World1/Level1.unity
     guid: 2d15c09b17174db4b97e232f89612661
   - enabled: 1
     path: Assets/Scenes/Levels/World1/Level2.unity
     guid: afbcf6cf12f04374598df2f2ec09dfb9
   - enabled: 1
-    path: Assets/Scenes/Levels/World1/Level1.unity
+    path: Assets/Scenes/Levels/World1/Level3.unity
     guid: fc60d66634e719049afa3dd5bf97b1cb
   - enabled: 1
     path: Assets/Scenes/Levels/World1/BackUp.unity
@@ -84,13 +84,13 @@ EditorBuildSettings:
     path: Assets/Scenes/Levels/World4/SpeedPadTutorial.unity
     guid: bff3d6c0843e97542a49f23353068313
   - enabled: 1
-    path: Assets/Scenes/Levels/World4/Level13.unity
+    path: Assets/Scenes/Levels/World4/Level11.unity
     guid: f0e018456513c394baf2fe9e9fcc170f
   - enabled: 1
-    path: Assets/Scenes/Levels/World4/Level11.unity
+    path: Assets/Scenes/Levels/World4/Level12.unity
     guid: 5024d47b9ad418545a352bf6cc21b6a9
   - enabled: 1
-    path: Assets/Scenes/Levels/World4/Level12.unity
+    path: Assets/Scenes/Levels/World4/Level13.unity
     guid: 778754858c21718489af0bdfb8ac6c80
   - enabled: 1
     path: Assets/Scenes/Levels/World4/Level14.unity

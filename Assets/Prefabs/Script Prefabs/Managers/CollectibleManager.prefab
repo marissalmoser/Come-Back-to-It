@@ -44,3 +44,148 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2547dee894e59b478c911c10613e92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collectibleStats:
+  - _levelName: Title Screen
+    _buildIndex: 0
+    isCollected: 0
+    _hasCollectible: 0
+  - _levelName: Planet Select
+    _buildIndex: 1
+    isCollected: 0
+    _hasCollectible: 0
+  - _levelName: Floral Level Select
+    _buildIndex: 2
+    isCollected: 0
+    _hasCollectible: 0
+  - _levelName: Move Tutorial
+    _buildIndex: 3
+    isCollected: 0
+    _hasCollectible: 0
+  - _levelName: Turn Tutorial
+    _buildIndex: 4
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Rotating Platforms Tutorial
+    _buildIndex: 5
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 1
+    _buildIndex: 6
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 2
+    _buildIndex: 7
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 3
+    _buildIndex: 8
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Backup
+    _buildIndex: 9
+    isCollected: 0
+    _hasCollectible: 0
+  - _levelName: Ice Level Select
+    _buildIndex: 10
+    isCollected: 0
+    _hasCollectible: 0
+  - _levelName: Jump Tutorial
+    _buildIndex: 11
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Stall Tutorial
+    _buildIndex: 12
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 4
+    _buildIndex: 13
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 5
+    _buildIndex: 14
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 6
+    _buildIndex: 15
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 7
+    _buildIndex: 16
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Fire Level Select
+    _buildIndex: 17
+    isCollected: 0
+    _hasCollectible: 0
+  - _levelName: Clear Tutorial
+    _buildIndex: 18
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Switch Tutorial
+    _buildIndex: 19
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Spike Tutorial
+    _buildIndex: 20
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 8
+    _buildIndex: 21
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 9
+    _buildIndex: 22
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 10
+    _buildIndex: 23
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Disco Level Select
+    _buildIndex: 24
+    isCollected: 0
+    _hasCollectible: 0
+  - _levelName: Speed Pad Tutorial
+    _buildIndex: 25
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 11
+    _buildIndex: 26
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 12
+    _buildIndex: 27
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 13
+    _buildIndex: 28
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 14
+    _buildIndex: 29
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Spring Tutorial
+    _buildIndex: 31
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 15
+    _buildIndex: 32
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 16
+    _buildIndex: 33
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 17
+    _buildIndex: 34
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 18
+    _buildIndex: 35
+    isCollected: 0
+    _hasCollectible: 1
+  - _levelName: Level 19
+    _buildIndex: 36
+    isCollected: 0
+    _hasCollectible: 1
